@@ -1,5 +1,9 @@
     body,h1,h5 {font-family: "Raleway", sans-serif}
     body, html {height: 100%}
+    h3 {
+        font-weight: bold;
+        color: white;
+    }
     .bgimg {
         background-image: url("/static/img/background.jpg");
         min-height: 100%;
@@ -21,6 +25,11 @@
          background-color:rgba(0, 0, 0, 0.5);
          padding:30px;
          <!--border:1px solid black;-->
+        }
+
+    .sectiongrey {
+         background-color:rgba(0, 0, 0, 0.5);
+        background-color:"#897979";
         }
 
     .section_title{
