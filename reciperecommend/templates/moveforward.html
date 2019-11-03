@@ -39,8 +39,6 @@
   <div class="w3-display-topleft w3-container w3-xlarge">
       <p><button onclick="document.getElementById('Choose Flavor').style.display='block'" class="w3-button w3-black">Choose Flavor</button></p>
     <p><button onclick="document.getElementById('Fill in Personal Information').style.display='block'" class="w3-button w3-black">Fill in Personal Information</button></p>
-    <p><button onclick="document.getElementById('contact').style.display='block'" class="w3-button w3-black">register</button></p>
-      <p><button onclick="document.getElementById('login').style.display='block'" class="w3-button w3-black">login</button></p>
 
   </div>
   <div class="w3-display-bottomleft w3-container">
@@ -55,20 +53,20 @@
   <div class="w3-modal-content w3-animate-zoom ">
     <span onclick="document.getElementById('Fill in Personal Information').style.display='none'" class="w3-button w3-display-topright w3-black">x</span>
       <div class="sectiongrey">
-  <form action="/fillinfo" method="post">
+  <form action="/fill_info" method="post">
       <div class="w3-quarter">
       <!-- <div class="round-button"><div class="round-button-circle"><a href="http://example.com" class="round-button">Button!!</a></div></div> -->
         <img src="/static/height.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity" color = "w3-text-white">
         <h3 style="font-weight: bold; color: white">Height</h3>
         <p></p>
-        <p><input class="w3-input w3-animate-input" type="text" placeholder="Weight" style="width:30%" required name="height"></p>
+        <p><input class="w3-input w3-animate-input" type="number" value="{{ context.height }}" style="width:30%" required name="height"></p>
       </div>
 
       <div class="w3-quarter">
         <img src="/static/weight.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
         <h3 style="font-weight: bold; color: white">Weight(kg)</h3>
         <p></p>
-        <p><input class="w3-input w3-animate-input" type="text" placeholder="Weight" style="width:30%" required name="weight"></p>
+        <p><input class="w3-input w3-animate-input" type="number" value="{{ context.weight }}" style="width:30%" required name="weight"></p>
 
       </div>
 
@@ -76,29 +74,35 @@
         <div class="div-center"><img src="/static/age.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
         <h3 style="font-weight: bold; color: white">Age</h3>
         <p></p>
-            <p><input class="w3-input w3-animate-input" type="text" placeholder="Weight" style="width:30%" required name="age"></p></div>
+            <p><input class="w3-input w3-animate-input" type="number" value="{{ context.age }}" style="width:30%" required name="age"></p></div>
         </div>
 
-      <div class="w3-quarter">
-        <img src="/static/meal.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
-        <h3 style="font-weight: bold; color: white">Gender</h3>
-        <p></p>
-        <p><input class="w3-input w3-animate-input" type="text" placeholder="Weight" style="width:30%" required name="gender"></p>
-        </div>
+
+
+
 
             <div class="w3-quarter">
         <img src="/static/meal.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
         <h3 style="font-weight: bold; color: white">Region</h3>
         <p></p>
-        <p><input class="w3-input w3-animate-input" type="text" placeholder="Weight" style="width:30%" required name="region"></p>
+        <p><input class="w3-input w3-animate-input" type="text" value="{{context.region}}" style="width:30%" required name="region"></p>
         </div>
       <div class="w3-quarter">
         <img src="/static/meal.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
         <h3 style="font-weight: bold; color: white">Frefered Flavour</h3>
         <p></p>
-        <p><input class="w3-input w3-animate-input" type="text" placeholder="Weight" style="width:30%" required name="prefered flavour"></p>
+        <p><input class="w3-input w3-animate-input" type="text" value="{{ context.flavour }}" style="width:30%" required name="flavour"></p>
         </div>
-
+      <div class="w3-quarter">
+        <img src="/static/meal.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+        <h3 style="font-weight: bold; color: white">Gender</h3>
+        <p></p>
+        <p>
+                        <select class="w3-select w3-animate-input"  class="form-control "style="width:30%"  name="gender" required>
+                        <option>male</option>
+                        <option>female</option>
+                      </select></p>
+        </div>
       <div class="w3-quarter">
         <img src="/static/meal.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
         <h3 style="font-weight: bold; color: white">Exercise Activity</h3>

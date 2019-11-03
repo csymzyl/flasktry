@@ -6,9 +6,13 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from datetime import datetime
 import pymysql
 
-#app = Flask(__name__)
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://recipeadm:1234@localhost:3306/recipe_recommendation"
+app.config['SQLALCHEMY_COMMIT_TEARDOWN'] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
-db = SQLAlchemy()
+db = SQLAlchemy(app)
 
 #创建模型对象
 class User(UserMixin,db.Model):
@@ -46,4 +50,4 @@ class user_character(UserMixin,db.Model):
  #       return '<User %r>' % self.email
 
 
-#db.create_all()
+db.create_all()

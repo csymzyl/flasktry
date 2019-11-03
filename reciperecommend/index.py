@@ -3,7 +3,7 @@ from flask import render_template
 import flask
 
 from flask_login import LoginManager
-from flask_login import login_user, login_required
+from flask_login import login_user, login_required,current_user
 from . import connsql
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
@@ -45,19 +45,42 @@ def choose_flavor():
         return render_template('newindex.html')
 
 
-@app.route('/fill_basicinfo',methods=['GET','POST'])
-def fill_basicinfo():
+@app.route('/fill_info',methods=['GET','POST'])
+def fill_info():
     if request.method == 'POST':
-        #flavor = request.form['flavor']
-        user = request.form['user']
+        email= current_user.email
+        print (email)
+        flavour = request.form['flavour']
+        print (flavour)
+        height = request.form['height']
         weight = request.form['weight']
         age = request.form['age']
         gender = request.form['gender']
-        print(height,weight,age)
-        user = connsql.User(username='yujiujiu2', password='11111')
-        connsql.db.session.add(user)
-        connsql.db.session.commit()
-        return redirect(url_for('show_recipes',  height=height, weight=weight, age=age, gender=gender))
+        activity = request.form['activity']
+        region = request.form['region']
+        print(activity,gender)
+        character = connsql.user_character.query.filter(connsql.user_character.email == email).first()
+        # 判断用户名是否存在
+        if character:
+            character.email=email
+            character.flavour=flavour
+            character.height=height
+            character.weight=weight
+            character.age=age
+            character.gender=gender
+            character.activity=activity
+            character.region=region
+            connsql.db.session.commit()
+        else:
+            character = connsql.user_character(email=email,flavour=flavour, height=height, weight=weight, age=age, gender=gender,activity=activity,region=region)
+            connsql.db.session.add(character)
+            connsql.db.session.commit()
+        return redirect(url_for('move_forward'))
+        #user = connsql.User(username='yujiujiu2', password='11111')
+        #connsql.db.session.add(user)
+        #connsql.db.session.commit()
+        return render_template('newindex.html')
+        return redirect(url_for('show_recipes', weight=weight, age=age, gender=gender))
     else:
         return render_template('newindex.html')
 @app.route('/register',methods=['GET','POST'])
@@ -98,7 +121,7 @@ def login():
         if user:
              if user.check_password(pwd):
                  login_user(user)
-                 return redirect(url_for('move_forward1'))
+                 return redirect(url_for('move_forward'))
              else:
                 return u' password error'
         else:
@@ -108,14 +131,22 @@ def login():
 
 @app.route('/moveforward',methods=['GET','POST'])
 @login_required
-def move_forward1():
-    #print (current_user.email)
-    if request.method == 'POST':
-        print ('asddf')
-        return render_template('moveforward.html')
-    else:
-        print ('asfd')
-        return render_template('moveforward.html')
+def move_forward():
+    email= (current_user.email)
+
+    character = connsql.user_character.query.filter(connsql.user_character.email == email).first()
+    print (character.height)
+    if character:
+        context = {
+            'region': character.region,
+            'activity': character.activity,
+            'height':character.height,
+            'weight':character.weight,
+            'age':character.age,
+            'flavour':character.flavour,
+            'gender':character.gender
+        }
+    return render_template('moveforward.html',context=context)
 
 
 
