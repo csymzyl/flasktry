@@ -21,7 +21,7 @@
     .section {
          width:400px;
          height:475px;
-         float:right;
+         float:middle;
          background-color:rgba(0, 0, 0, 0.5);
          padding:30px;
          <!--border:1px solid black;-->

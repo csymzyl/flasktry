@@ -1,3 +1,7 @@
+"""
+@author: xueying peng
+"""
+
 from flask import Flask, url_for
 from flask import render_template
 import flask
@@ -5,6 +9,7 @@ import flask
 from flask_login import LoginManager
 from flask_login import login_user, login_required,current_user
 from . import connsql
+from constraint import *
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 app = Flask(__name__)
@@ -33,17 +38,16 @@ def index():
     return render_template('newindex.html')
 @app.route('/chooseflavour',methods=['GET', 'POST'])
 def choose_flavor():
-    if request.method == 'POST':
-        flavor = request.form['flavor']
-        height = request.form['height']
-        weight = request.form['weight']
-        age = request.form['age']
-        gender = request.form['gender']
-        return redirect(url_for('show_recipes', flavor=flavor, height=height, weight=weight, age=age, gender=gender))
-    else:
-        print ('asdfsf')
-        return render_template('newindex.html')
-
+    email = current_user.email
+    character = connsql.user_character.query.filter(connsql.user_character.email == email).first()
+    if character:
+        standard = nutrition(character.age,character.weight, character.height, character.gender, character.activity)
+        print (standard)
+        flavour = character.flavour
+        height = character.height
+        weight = character.weight
+        return redirect(url_for('move_forward'))
+    return render_template('newindex.html')
 
 @app.route('/fill_info',methods=['GET','POST'])
 def fill_info():
