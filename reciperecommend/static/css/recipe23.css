@@ -48,7 +48,7 @@ body {
     margin-top: 20px;
     margin-left: 0px;
     position: relative;
-    width:400px;
+    width:800px;
     min-height: 100%;
     float:right;
     background-color:rgba(0, 0, 0, 0.5);
@@ -78,8 +78,8 @@ body {
     }
 
 .ninegrids{
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     background: none;
     position: relative;
     border: 5px solid rgba(0, 0, 0, 0.0001);

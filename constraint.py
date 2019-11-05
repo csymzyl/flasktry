@@ -22,13 +22,14 @@ def constraint_EER(my_nutrition, age, weight, height, gender, activity_level, st
 #    for i in range(n_nutrition):
         if my_nutrition[i] < standard[i]*(1-allow) or my_nutrition[i] > standard[i]*(1+allow):
             if_satisfied = False
+            break
 
     return if_satisfied
 
 
 def nutritional_constraints(yum, age, weight, height, gender, activity_level):
     yum_list=[]
-    standard = nutrition(age, weight, height, gender, activity_level)
+    standard = nutrition(age, weight, height/100, gender, activity_level)
     standard = [standard[i]/2.7 for i in range(len(standard))]
     nutrition_list=['ENERC_KJ', 'PROCNT', 'CHOCDF', 'FIBTG', 'FAT', 'CA', 'FE', 'MG', 'P', 'K',\
                     'NA', 'ZN', 'MN', 'SE', 'VITA_RAE', 'TOCPHA', 'VITC', 'RIBF', 'NIA', 'VITB6A', 'BITB12'

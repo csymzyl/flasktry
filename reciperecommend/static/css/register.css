@@ -19,8 +19,7 @@
         }
 
     .section {
-         width:400px;
-         height:475px;
+         width:800px;
          float:right;
          background-color:rgba(0, 0, 0, 0.5);
          padding:30px;
@@ -44,8 +43,8 @@
         }
 
     .ninegrids{
-        width: 100px;
-        height: 100px;
+        width: 200px;
+        height: 200px;
         background: none;
         position: relative;
         border: 5px solid rgba(0, 0, 0, 0.0001);

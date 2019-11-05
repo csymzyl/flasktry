@@ -1,11 +1,6 @@
 """
 @author: xueying peng
 """
-
-from flask import Flask, url_for
-from flask import render_template
-import flask
-
 from flask_login import LoginManager
 from flask_login import login_user, login_required,current_user
 from . import connsql
@@ -23,7 +18,6 @@ app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 
 connsql.db.init_app(app)
-#@app.route('/register')
 
 login_manager = LoginManager()
 login_manager.login_view = 'login'
@@ -104,7 +98,9 @@ def register():
             user = connsql.User(username=name, password=pwd, email=email)
             connsql.db.session.add(user)
             connsql.db.session.commit()
-            return redirect(url_for('index', user=user))
+            login_user(user)
+            return redirect(url_for('move_forward', reg=1))
+            return redirect(url_for('index', email=email))
     else:
         return render_template('newindex.html')
 @login_manager.user_loader
@@ -125,7 +121,7 @@ def login():
         if user:
              if user.check_password(pwd):
                  login_user(user)
-                 return redirect(url_for('move_forward'))
+                 return redirect(url_for('move_forward', reg=0))
              else:
                 return u' password error'
         else:
@@ -139,7 +135,6 @@ def move_forward():
     email= (current_user.email)
 
     character = connsql.user_character.query.filter(connsql.user_character.email == email).first()
-    print (character.height)
     if character:
         context = {
             'region': character.region,
@@ -150,7 +145,8 @@ def move_forward():
             'flavour':character.flavour,
             'gender':character.gender
         }
-    return render_template('moveforward.html',context=context)
+        return render_template('moveforward.html',context=context)
+    return render_template('moveforward.html')
 
 
 

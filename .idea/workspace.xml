@@ -2,13 +2,71 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e83c31d-e67f-4926-8c7f-0f6469e67fab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/reciperecommend/constraint.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reciperecommend/nutrition.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reciperecommend/connmongodb.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reciperecommend/connsql.py" beforeDir="false" afterPath="$PROJECT_DIR$/reciperecommend/connsql.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constraint.py" beforeDir="false" afterPath="$PROJECT_DIR$/constraint.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reciperecommend/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/reciperecommend/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reciperecommend/static/css/image_click9.css" beforeDir="false" afterPath="$PROJECT_DIR$/reciperecommend/static/css/image_click9.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reciperecommend/static/css/recipe23.css" beforeDir="false" afterPath="$PROJECT_DIR$/reciperecommend/static/css/recipe23.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reciperecommend/static/css/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/reciperecommend/static/css/register.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reciperecommend/templates/moveforward.html" beforeDir="false" afterPath="$PROJECT_DIR$/reciperecommend/templates/moveforward.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/age.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/ie10-viewport-bug-workaround.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/image_basicinfo.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/image_click9.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/recipe23.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/register.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/starter-template.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/height.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/icon/age.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/icon/height.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/icon/meal.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/icon/weight.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/135652078.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Asian_Garlic_Tofu.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Bakery-ingredients.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Chicken_Stir-Fry_with_Noodles.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Chicken_and_Avocado_Burritos.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Cilantro_Lime_Chicken_Tacos.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Cuban_Style_Lamb.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Img/135652078.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Img/Bakery-ingredients.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Img/berry-1239306.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Img/food-eating-potatoes-beer-8313.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Img/gettyimages-604621086.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Img/tart-HC.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Mediterranean_Chicken_Pita_Bowls.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Mexican_Beef_Lasagna.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Shumai_with_Crab_and_Pork.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Slow_Cooker_Irish_Beef_Stew.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/Southwestern_Beef_Wraps.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/age.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/back.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/background2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/berry-1239306.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/food-eating-potatoes-beer-8313.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/gettyimages-604621086.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/height.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/meal.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/plane.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/tart-HC.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/weight.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/ie-emulation-modes-warning.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/ie10-viewport-bug-workaround.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/meal.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/weight.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/content.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/hello.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/newindex.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/p2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/recipeRecommend.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +110,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Flask server.Flask (reciperecommend/index.py)">
+  <component name="RunManager" selected="Flask server.Flask (reciperecommend/connmongodb.py)">
     <configuration name="connsql" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tryflask" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -97,9 +155,9 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
+    <configuration name="Flask (reciperecommend/connmongodb.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
       <module name="tryflask" />
-      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="target" value="$PROJECT_DIR$/reciperecommend/connmongodb.py" />
       <option name="targetType" value="PATH" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -160,10 +218,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Flask server.Flask (reciperecommend/index.py)" />
+        <item itemvalue="Flask server.Flask (reciperecommend/connmongodb.py)" />
         <item itemvalue="Python.constraint" />
         <item itemvalue="Python.connsql" />
         <item itemvalue="Flask server.Flask (register.py)" />
-        <item itemvalue="Flask server.Flask (app.py)" />
       </list>
     </recent_temporary>
   </component>
@@ -178,7 +236,7 @@
       <option name="presentableId" value="Default" />
       <updated>1572705729058</updated>
       <workItem from="1572705731382" duration="3653000" />
-      <workItem from="1572720818099" duration="59282000" />
+      <workItem from="1572720818099" duration="79779000" />
     </task>
     <servers />
   </component>
@@ -201,8 +259,28 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/reciperecommend/index.py</url>
-          <line>82</line>
+          <line>76</line>
           <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/reciperecommend/connmongodb.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/reciperecommend/connmongodb.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/reciperecommend/constraint.py</url>
+          <line>46</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/reciperecommend/constraint.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="70" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -214,6 +292,7 @@
     <SUITE FILE_PATH="coverage/tryflask$constraint.coverage" NAME="constraint Coverage Results" MODIFIED="1572858204975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/reciperecommend" />
     <SUITE FILE_PATH="coverage/tryflask$tryflask.coverage" NAME="tryflask Coverage Results" MODIFIED="1572707097395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/tryflask$Flask__register_py_.coverage" NAME="Flask (register.py) Coverage Results" MODIFIED="1572780057094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/tryflask$Flask__reciperecommend_index_py_.coverage" NAME="Flask (reciperecommend/index.py) Coverage Results" MODIFIED="1572862309771" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/tryflask$Flask__reciperecommend_index_py_.coverage" NAME="Flask (reciperecommend/index.py) Coverage Results" MODIFIED="1572944844273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/tryflask$Flask__reciperecommend_connmongodb_py_.coverage" NAME="Flask (reciperecommend/connmongodb.py) Coverage Results" MODIFIED="1572944823386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

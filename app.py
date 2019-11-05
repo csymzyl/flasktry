@@ -12,13 +12,14 @@ app.debug = True
 
 @app.route('/register', methods=['GET', 'POST'])
 def choose_flavor():
+    return 1
     if request.method == 'POST':
         flavor = request.form['flavor']
         height = request.form['height']
         weight = request.form['weight']
         age = request.form['age']
         gender = request.form['gender']
-        return redirect(url_for('show_recipes', flavor=flavor, height=height, weight=weight, age=age, gender=gender))
+        return redirect(url_for('move_forward', showrecipe=1))
     else:
         return render_template('index.html')
 
