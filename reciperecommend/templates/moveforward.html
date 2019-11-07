@@ -191,70 +191,25 @@
             <form action="{{ url_for('choose_flavor') }}" method="post">
                 <div class="cc-selector">
                     <div class="input-group">
+                 {% for j in range(3) %}
+                     <div class="w3-row">
                         <div align="center">
-                            <div class="ninegrids_left"></div>
-                            <div class="ninegrids">
-                                <input id="{{ context.height }}"  type="radio" name="flavor" value="0" required/>
-                                <label class="drinkcard-cc" for="{{ context.height }}" style="background-image:url(/static/img/Asian_Garlic_Tofu.jpg)">{{ context.height }}</label>
-                                <p>{{ context.height }}</p>
+                            {% for i in range(3) %}
+                                <div class="w3-third w3-container">
+                                <!--{% if loop.first %}
+                                    <input id="selectorid{{j}}"  type="radio" name="flavor" value="0" required/>
+                                {%  else %}
+                                {% endif %}-->
+                                <input id="{{j}}"  type="radio" name="choosedrecipe" value="{{j}}" required/>
+                                <label class="drinkcard-cc" for="{{ j }}" style="background-image:url({{ context.recipe[j][i][4] }})">"</label>
+                                    <p><div style="font-weight: bold; color: white;">{{ context.recipe[j][i][1] }}</div></p>
                             </div>
-                            <div class="ninegrids_left"></div>
-                            <div class="ninegrids">
-                                <input id="Mexican_Beef_Lasagna" type="radio" name="flavor" value="1"/>
-                                <label class="drinkcard-cc Mexican_Beef_Lasagna" for="Mexican_Beef_Lasagna"></label>
-                                <p>{{ context.height }}</p>
-                            </div>
-                            <div class="ninegrids_left"></div>
-                            <div class="ninegrids">
-                                <input id="Chicken_Stir-Fry_with_Noodles" type="radio" name="flavor" value="2"/>
-                                <label class="drinkcard-cc Chicken_Stir-Fry_with_Noodles"
-                                       for="Chicken_Stir-Fry_with_Noodles"></label>
-                            </div>
+                            {% endfor %}
                         </div>
-                        <p></p>
-                        <div align="center">
-                        <div class="ninegrids_left"></div>
-                        <div class="ninegrids_left"></div>
-                        <div class="ninegrids">
-                            <input id="Chicken_and_Avocado_Burritos" type="radio" name="flavor" value="3"/>
-                            <label class="drinkcard-cc Chicken_and_Avocado_Burritos"
-                                   for="Chicken_and_Avocado_Burritos"></label>
-                        </div>
-                        <div class="ninegrids_left"></div>
-                        <div class="ninegrids">
-                            <input id="Southwestern_Beef_Wraps" type="radio" name="flavor" value="4"/>
-                            <label class="drinkcard-cc Southwestern_Beef_Wraps" for="Southwestern_Beef_Wraps"></label>
-                        </div>
-                        <div class="ninegrids_left"></div>
-                        <div class="ninegrids">
-                            <input id="Cuban_Style_Lamb" type="radio" name="flavor" value="5"/>
-                            <label class="drinkcard-cc Cuban_Style_Lamb" for="Cuban_Style_Lamb"></label>
-                        </div>
-</div>
-                        <div align="center">
-                        <div class="ninegrids_left"></div>
-                        <div class="ninegrids">
-                            <input id="Shumai_with_Crab_and_Pork" type="radio" name="flavor" value="6"/>
-                            <label class="drinkcard-cc Shumai_with_Crab_and_Pork"
-                                   for="Shumai_with_Crab_and_Pork"></label>
-                        </div>
-                        <div class="ninegrids_left"></div>
-                        <div class="ninegrids">
-                            <input id="Cilantro_Lime_Chicken_Tacos" type="radio" name="flavor" value="7"/>
-                            <label class="drinkcard-cc Cilantro_Lime_Chicken_Tacos"
-                                   for="Cilantro_Lime_Chicken_Tacos"></label>
-                        </div>
-                        <div class="ninegrids_left"></div>
-                        <div class="ninegrids">
-                            <input id="Slow_Cooker_Irish_Beef_Stew" type="radio" name="flavor" value="8"/>
-                            <label class="drinkcard-cc Slow_Cooker_Irish_Beef_Stew"
-                                   for="Slow_Cooker_Irish_Beef_Stew"></label>
-                        </div>
-                        </div>
+                     </div>
+                {% endfor %}
                     </div>
-
                 </div>
-
                 <p>
                 <div class="div-center"><input class="btn btn-primary" type="submit" name="action"
                                                value="Get Recommendation"/></div>

@@ -1,5 +1,5 @@
-body,h1,h5 {font-family: "Playfair Display", sans-serif}
-h5 {
+body,h1,h4,h5 {font-family: "Playfair Display", sans-serif}
+h4 {
     width: 26%;
     word-wrap:break-word;
     word-break:break-all;
@@ -48,7 +48,7 @@ body {
     margin-top: 20px;
     margin-left: 0px;
     position: relative;
-    width:800px;
+    width:400px;
     min-height: 100%;
     float:right;
     background-color:rgba(0, 0, 0, 0.5);
@@ -78,8 +78,8 @@ body {
     }
 
 .ninegrids{
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     background: none;
     position: relative;
     border: 5px solid rgba(0, 0, 0, 0.0001);

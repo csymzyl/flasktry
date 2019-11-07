@@ -1,9 +1,10 @@
 """
 @author: xueying peng
 """
+import json
 from flask_login import LoginManager
 from flask_login import login_user, login_required,current_user
-from . import connsql
+from . import connsql,connmongodb
 from constraint import *
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
@@ -16,7 +17,8 @@ app.config['SQLALCHEMY_COMMIT_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
-
+app.config["MONGO_URI"]="mongodb://localhost:27017/recipe"
+connmongodb.mongo.init_app(app)
 connsql.db.init_app(app)
 
 login_manager = LoginManager()
@@ -24,6 +26,17 @@ login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 login_manager.login_message = 'Access denied.'
 login_manager.init_app(app)
+
+global_var = [""]  # 定义一个全局变量，存在相应的值
+def set_var(var):
+    global_var[0] = var
+    return ""
+def get_var():
+    return global_var[0]
+
+
+app.add_template_global(set_var, 'set_var')
+app.add_template_global(get_var, 'get_var')
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -37,10 +50,36 @@ def choose_flavor():
     if character:
         standard = nutrition(character.age,character.weight, character.height, character.gender, character.activity)
         print (standard)
+        #choice=request.form["choosedrecipe"]
+        #print (choice)
         flavour = character.flavour
         height = character.height
         weight = character.weight
-        return redirect(url_for('move_forward'))
+        recipe=connmongodb.getSatisifiedRecipe()
+        print (request.form)
+        #a=request.form
+        choice = int(request.form['choosedrecipe'])
+        print (global_var[0])
+        recipe=list(global_var[0]['recipe'][choice])
+        for i in range(len(recipe)):
+            recipe[i]=list(recipe[i])
+            lst=recipe[i][2][2:-2]
+            ind=0
+            arr=[]
+            while i<len(lst):
+                if lst[i]=="'":
+                    arr.append(lst[ind:i])
+                    i+=4
+                    ind=i
+                i+=1
+            #arr = recipe[i][2].split("\\")
+            #arr=list(lst)
+            recipe[choice].append(arr)
+            recipe[choice][2]=arr
+        print ((recipe[0][4],recipe[0][0],recipe[0][1]))
+
+            #x[2]=json.load(x[2])
+        return render_template('recipeRecommend.html', entries=recipe,error=None)
     return render_template('newindex.html')
 
 @app.route('/fill_info',methods=['GET','POST'])
@@ -74,9 +113,6 @@ def fill_info():
             connsql.db.session.add(character)
             connsql.db.session.commit()
         return redirect(url_for('move_forward'))
-        #user = connsql.User(username='yujiujiu2', password='11111')
-        #connsql.db.session.add(user)
-        #connsql.db.session.commit()
         return render_template('newindex.html')
         return redirect(url_for('show_recipes', weight=weight, age=age, gender=gender))
     else:
@@ -136,6 +172,8 @@ def move_forward():
 
     character = connsql.user_character.query.filter(connsql.user_character.email == email).first()
     if character:
+        recipe = connmongodb.getSatisifiedRecipe()
+        print(recipe)
         context = {
             'region': character.region,
             'activity': character.activity,
@@ -143,8 +181,10 @@ def move_forward():
             'weight':character.weight,
             'age':character.age,
             'flavour':character.flavour,
-            'gender':character.gender
+            'gender':character.gender,
+            'recipe': recipe
         }
+        global_var[0]=context
         return render_template('moveforward.html',context=context)
     return render_template('moveforward.html')
 
