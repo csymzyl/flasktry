@@ -42,7 +42,6 @@ def writeSatisifiedRecipe():
         #print (x)
         arr.append((x["_id"],x["nutrition"]))
         recipearr.append((x["id"],x["name"],x["big_image"],x["ingredient_amount"],x["provider"]))
-    #satisfied_recipes = constraint.nutritional_constraints(arr, 24, 66, 177, "male", 'Active')
     for i in range(1,9):
         x=recipearr[i]
         recipe = {
@@ -53,4 +52,25 @@ def writeSatisifiedRecipe():
             'provider': x[4]
         }
         mongo.db.recommendingrecipe.insert(recipe)
-    #print (satisfied_recipes)
+def writeSatisifiedRecipe():
+    recitable=mongo.db.recipeinfo
+    reci = mongo.db.recipeinfo.find_one({"cuisine":"Chinese"})
+    reci = mongo.db.recipeinfo.find_one()
+    print((reci,reci["cuisine"]))
+    res=recitable.find({"cuisine":"Chinese", "dbscan_label":2})
+    arr=[]
+    recipearr=[]
+    for x in res:
+        #print (x)
+        arr.append((x["_id"],x["nutrition"]))
+        recipearr.append((x["id"],x["name"],x["big_image"],x["ingredient_amount"],x["provider"]))
+    for i in range(1,9):
+        x=recipearr[i]
+        recipe = {
+            'recipeid': x[0],
+            'name': x[1],
+            'imgurl': x[2],
+            'ingredient': x[3],
+            'provider': x[4]
+        }
+        mongo.db.recommendingrecipe.insert(recipe)

@@ -1,6 +1,6 @@
 body,h1,h4,h5 {font-family: "Playfair Display", sans-serif}
-h4 {
-    width: 26%;
+h5 {
+    width: 36%;
     word-wrap:break-word;
     word-break:break-all;
     overflow: hidden;

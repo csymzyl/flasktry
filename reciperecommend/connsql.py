@@ -34,17 +34,29 @@ class User(UserMixin,db.Model):
         result = check_password_hash(self._password, row_password)
         return result
 
+
 class user_character(UserMixin,db.Model):
     __tablename__='user_character'
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    activity = db.Column(db.String(120), unique=True, nullable=False)
-    weight = db.Column(db.Integer, unique=True, nullable=False)
-    height = db.Column(db.Integer, unique=True, nullable=False)
-    age = db.Column(db.Integer, unique=True, nullable=False)
-    region = db.Column(db.String(120), unique=True, nullable=False)
-    flavour = db.Column(db.String(120), unique=True, nullable=False)
-    gender = db.Column(db.String(120), unique=True, nullable=False)
+    activity = db.Column(db.String(120), nullable=False)
+    weight = db.Column(db.Integer, nullable=False)
+    height = db.Column(db.Integer, nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    region = db.Column(db.String(120), nullable=False)
+    fitnessgoal = db.Column(db.String(120), nullable=False)
+    cookingskill = db.Column(db.String(120))
+    gender = db.Column(db.String(120), nullable=False)
+
+
+class user_historicalrecipe(db.Model):
+    __tablename__='user_historicalrecipe'
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True)
+    email = db.Column(db.String(120),  nullable=False)
+    recipeid = db.Column(db.String(120), nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.String(120), nullable=False)
+    timestamp = db.Column(db.Integer, nullable=False)
 
  #   def __repr__(self):
  #       return '<User %r>' % self.email

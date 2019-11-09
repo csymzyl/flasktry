@@ -25,7 +25,6 @@
     <!-- Custom styles for this template -->
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/recipe23.css') }}">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/image_click9.css') }}">
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/star.css') }}">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -59,7 +58,7 @@
     </nav>
 
   <div class="w3-display-middle w3-jumbo">
-    <p style="font-family: 'Pacifico', cursive; font-size=96px;">To Find What You Like</p>
+    <p style="font-family: 'Pacifico', cursive; font-size=96px;">Health Ninja</p>
   </div>
 
     <div class="container" style="width: 100%; padding-left: 0px; padding-right:0px; margin-left: 100px;">
@@ -70,66 +69,36 @@
                   <p>{{ error }}</p>
               {% else %}
                 <div class="w3-row-padding w3-padding-16 w3-center" id="food">
- <!--                   <div class="w3-third">
-                        <img  id="image1", src="{{ entries[0][4] }}" alt="image1" style="width:100%">
-                    </div>
-                    <div class="w3-third">
-                     <img  id="image2", src="{{ entries[1][4] }}" alt="image2" style="width:100%">
-                    </div>
-                    <div class="w3-third">
-                     <img  id="image3", src="{{ entries[2][4] }}" alt="image3" style="width:100%">
-                    </div>
--->
-                    {% for i in range(3) %}
-                        <div class="w3-third">
-                            <div class="w3-button w3-white w3-ripple" style="margin:0;padding:0" onclick="document.getElementById('ingredient0').style.display='none';document.getElementById('ingredient1').style.display='none';document.getElementById('ingredient2').style.display='none';document.getElementById('ingredient{{ i }}').style.display='';">
-                                <img src="{{ entries[i][4] }}" style="width:100%">
-                            </div>
-                        <!--
-                        <input id="{{i}}"  type="radio" name="choosedrecipe" value="{{i}}" hidden required/>
-                        <label for="{{ i }}"><img src="{{ entries[i][4] }}" width="100%"></label>
-                        -->
-                    </div>
-                  {% endfor %}
-
+                <div class="w3-third">
+                    <img  id="image1", src="{{ entries[0][4] }}" alt="image1" style="width:100%">
                 </div>
-                  <div class="w3-row-padding w3-padding-16">
-                    {% for i in range(3) %}
-                        <div class="w3-third">
-                            <p></p>
-                            <h4> {{ entries[i][1] }}</h4>
-                            <p></p>
-                            <h4> Provider: </h4><p></p><h4>{{ entries[i][3] }}</h4>
-                        </div>
-                     {% endfor %}
-                  </div>
-                  <div class="div-center"><input class="btn btn-primary" type="submit" name="action" onclick="document.getElementById('evaluate').style.display='block'"
-                                               value="Choose and Evaluate"/></div>
+                <div class="w3-third">
+                 <img  id="image2", src="{{ entries[1][4] }}" alt="image2" style="width:100%">
+                </div>
+                <div class="w3-third">
+                 <img  id="image3", src="{{ entries[2][4] }}" alt="image3" style="width:100%">
+                </div>
+                </div>
+                  <p></p>
+                  <h5>Ingredients:</h5>
+                  <p></p>
+                  {% for x in entries[0][2] %}
+                        <h5>{{ x }}</h5>
+                        <p></p>
+                  {% endfor %}
             </div>
         </div>
 
-        <div class="w3-display-left w3-jumbo" style="background-color: rgba(255, 255, 255, 0.5); margin-top:0px; height:100%; width:33%; margin-left:66%;">
-            <div  class="w3-main w3-display-content w3-padding" style="max-width:33%; padding=20px; height: 650px; font-size:18px; margin-top:100px;">
+        <div class="w3-display-left w3-jumbo" style="background-color: rgba(255, 255, 255, 0.5); margin-top:0px; height:100%; width:26%; margin-left:70%;">
+            <div  class="w3-main w3-display-content w3-padding" style="max-width:26%; padding=20px; height: 650px; font-size:18px; margin-top:100px;">
                 <div class="w3-middle container">
-                    <h1 style="font-family: 'Pacifico', cursive; font-size=96px; margin-left:20px; font-size:50px;">Recipe Ingredients: </h1>
+                    <h1 style="font-family: 'Pacifico', cursive; font-size=96px; margin-left:20px; font-size:50px;">Recipe Report: </h1>
                     <div id="report" class="w3-middle container" style=" overflow-y: scroll; overflow-x: hidden; height: 500px;">
                         <p></p>
-                    <!--
                         <h4> {{ entries[0][1] }}</h4>
                         <p></p>
                         <h4> Provider: {{ entries[0][3] }}</h4>
                         <p></p>
-                      <h5>Ingredients:</h5>-->
-                    {% for i in range(3) %}
-                        <div id="ingredient{{ i }}" style="display: none;">
-                            <p></p>
-                              {% for x in entries[i][2] %}
-                                    <h5>{{ x }}</h5>
-                                    <p></p>
-                              {% endfor %}
-                        </div>
-                     {% endfor %}
-
 
 
                  <!--       <h5> Recipe Name:{{ entries[0][0] }}, Cuisine: {{ entries[0][1] }}, Provider: {{ entries[0][2] }}, Ingredient: {{ entries[0][3] }}</h5>
@@ -264,30 +233,22 @@
         <!--</div>-->
     <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-<!-- Evaluate Modal -->
-<div id="evaluate" class="w3-modal">
+<!-- Contact Modal -->
+<div id="contact" class="w3-modal">
   <div class="w3-modal-content w3-animate-zoom">
     <div class="w3-container w3-black">
-      <span onclick="document.getElementById('evaluate').style.display='none'" class="w3-button w3-display-topright w3-black">x</span>
+      <span onclick="document.getElementById('contact').style.display='none'" class="w3-button w3-display-topright w3-black">x</span>
       <!-- <h1>Contact</h1> -->
     </div>
     <div class="w3-container">
-          <form id="score_form" action="{{ url_for('evaluate') }}"  method="POST">
-            <div class="star_evaluate">
-                <input type="radio" id="scoreId_1" class="score score_1" name="score" value="1"/>
-                <label for="scoreId_1" class="star star_1"></label>
-                <input type="radio" id="scoreId_2" class="score score_2" name="score" value="2"/>
-                <label for="scoreId_2" class="star star_2"></label>
-                <input type="radio" id="scoreId_3" class="score score_3" name="score" value="3"/>
-                <label for="scoreId_3" class="star star_3"></label>
-                <input type="radio" id="scoreId_4" class="score score_4" name="score" value="4"/>
-                <label for="scoreId_4" class="star star_4"></label>
-                <input type="radio" id="scoreId_5" class="score score_5" name="score" value="5"/>
-                <label for="scoreId_5" class="star star_5"></label>
-            </div>
-              <div class="div-center"><input class="btn btn-primary" type="submit" name="action"
-                                               value="Evaluate"/></div>
-        </form>
+      <p>Reserve a table, ask for today's special or just send us a message:</p>
+      <form action="/action_page.php" target="_blank">
+        <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name"></p>
+        <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="How many people" required name="People"></p>
+        <p><input class="w3-input w3-padding-16 w3-border" type="datetime-local" placeholder="Date and time" required name="date" value="2017-11-16T20:00"></p>
+        <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message \ Special requirements" required name="Message"></p>
+        <p><button class="w3-button" type="submit">SEND MESSAGE</button></p>
+      </form>
     </div>
   </div>
 </div>

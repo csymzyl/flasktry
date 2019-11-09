@@ -8,6 +8,11 @@ from . import connsql,connmongodb
 from constraint import *
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
+from concurrent.futures import ThreadPoolExecutor
+import time
+from time import sleep
+
+executor = ThreadPoolExecutor(2)
 app = Flask(__name__)
 
 app.debug = True
@@ -43,6 +48,8 @@ app.add_template_global(get_var, 'get_var')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     return render_template('newindex.html')
+
+
 @app.route('/chooseflavour',methods=['GET', 'POST'])
 def choose_flavor():
     email = current_user.email
@@ -50,14 +57,8 @@ def choose_flavor():
     if character:
         standard = nutrition(character.age,character.weight, character.height, character.gender, character.activity)
         print (standard)
-        #choice=request.form["choosedrecipe"]
-        #print (choice)
-        flavour = character.flavour
-        height = character.height
-        weight = character.weight
         recipe=connmongodb.getSatisifiedRecipe()
         print (request.form)
-        #a=request.form
         choice = int(request.form['choosedrecipe'])
         print (global_var[0])
         recipe=list(global_var[0]['recipe'][choice])
@@ -65,30 +66,53 @@ def choose_flavor():
             recipe[i]=list(recipe[i])
             lst=recipe[i][2][2:-2]
             ind=0
+            j=0
             arr=[]
-            while i<len(lst):
-                if lst[i]=="'":
-                    arr.append(lst[ind:i])
-                    i+=4
-                    ind=i
-                i+=1
-            #arr = recipe[i][2].split("\\")
-            #arr=list(lst)
-            recipe[choice].append(arr)
-            recipe[choice][2]=arr
+            while j<len(lst):
+                if lst[j]=="'":
+                    arr.append(lst[ind:j])
+                    j+=4
+                    ind=j
+                j+=1
+            recipe[i].append(arr)
+            recipe[i][2]=arr
+        global_var[0]['choice']=choice
         print ((recipe[0][4],recipe[0][0],recipe[0][1]))
-
-            #x[2]=json.load(x[2])
         return render_template('recipeRecommend.html', entries=recipe,error=None)
     return render_template('newindex.html')
+
+
+@app.route('/evaluate',methods=['GET', 'POST'])
+def evaluate():
+    a=0
+    score = int(request.form['score'])
+    #executor.submit(redirect(url_for('move_forward')))
+    #executor.submit(saveuserrecipe, score)
+    #return render_template('newindex.html')
+
+    #executor.submit(some_long_task1)
+    email = current_user.email
+    print(email)
+    recipe = list(global_var[0]['recipe'][global_var[0]['choice']])
+    print(recipe)
+
+    curtime = time.strftime("%Y-%m-%d", time.localtime())
+    timestamp = time.time()
+    for x in recipe:
+        userrecipe = connsql.user_historicalrecipe(email=email,recipeid=x[0],date=curtime,timestamp=timestamp,score=score)
+        connsql.db.session.add(userrecipe)
+        connsql.db.session.commit()
+    character = connsql.user_character.query.filter(connsql.user_character.email == email).first()
+    executor.submit(saveuserrecipe, score,email,recipe)
+    #executor.submit(some_long_task2, 'hello', score)
+    return redirect(url_for('move_forward', reg=0))
 
 @app.route('/fill_info',methods=['GET','POST'])
 def fill_info():
     if request.method == 'POST':
         email= current_user.email
         print (email)
-        flavour = request.form['flavour']
-        print (flavour)
+        fitnessgoal = request.form['fitnessgoal']
         height = request.form['height']
         weight = request.form['weight']
         age = request.form['age']
@@ -100,7 +124,7 @@ def fill_info():
         # 判断用户名是否存在
         if character:
             character.email=email
-            character.flavour=flavour
+            character.fitnessgoal=fitnessgoal
             character.height=height
             character.weight=weight
             character.age=age
@@ -109,12 +133,10 @@ def fill_info():
             character.region=region
             connsql.db.session.commit()
         else:
-            character = connsql.user_character(email=email,flavour=flavour, height=height, weight=weight, age=age, gender=gender,activity=activity,region=region)
+            character = connsql.user_character(email=email,fitnessgoal=fitnessgoal, height=height, weight=weight, age=age, gender=gender,activity=activity,region=region)
             connsql.db.session.add(character)
             connsql.db.session.commit()
         return redirect(url_for('move_forward'))
-        return render_template('newindex.html')
-        return redirect(url_for('show_recipes', weight=weight, age=age, gender=gender))
     else:
         return render_template('newindex.html')
 @app.route('/register',methods=['GET','POST'])
@@ -135,7 +157,8 @@ def register():
             connsql.db.session.add(user)
             connsql.db.session.commit()
             login_user(user)
-            return redirect(url_for('move_forward', reg=1))
+            #return redirect(url_for('move_forward', reg=1))
+            return redirect(url_for('index', reg=1))
             return redirect(url_for('index', email=email))
     else:
         return render_template('newindex.html')
@@ -180,9 +203,10 @@ def move_forward():
             'height':character.height,
             'weight':character.weight,
             'age':character.age,
-            'flavour':character.flavour,
+            'fitnessgoal':character.fitnessgoal,
             'gender':character.gender,
-            'recipe': recipe
+            'recipe': recipe,
+            'choice':0
         }
         global_var[0]=context
         return render_template('moveforward.html',context=context)
@@ -199,6 +223,41 @@ def show_user_profile(username):
 def show_post(post_id):
     # show the post with the given id, the id is an integer
     return 'Post %d' % post_id
+
+@app.route('/jobs')
+def run_jobs():
+    executor.submit(some_long_task1)
+    #executor.submit(some_long_task2, 'hello', 123)
+    return redirect(url_for('move_forward', reg=0))
+
+
+def some_long_task1():
+    print("Task #1 started!")
+    sleep(10)
+    print("Task #1 is done!")
+
+
+def some_long_task2(arg1, arg2):
+    email = current_user.email
+    print(email)
+    recipe = list(global_var[0]['recipe'][global_var[0]['choice']])
+    print(recipe)
+    curtime = time.strftime("%Y-%m-%d", time.localtime())
+    recipeid = recipe[0][0]
+    timestamp = time.time()
+    print('sadf')
+    print("Task #2 started with args: %s %s!" % (arg1, arg2))
+    sleep(5)
+    print("Task #2 is done!")
+
+
+
+def saveuserrecipe(score,email,recipe):
+
+    curtime = time.strftime("%Y-%m-%d", time.localtime())
+    #recipeid=recipe[0][0]
+    timestamp=time.time()
+    print ('asfdsf')
 
 if __name__ == '__main__':
     app.run()

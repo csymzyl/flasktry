@@ -66,12 +66,12 @@
     <div class="w3-display-topleft w3-container w3-xlarge">
         <p>
             <button onclick="document.getElementById('Choose Flavor').style.display='block'" class="w3-button w3-black">
-                Choose Flavor
+                Get Today's Recommendation
             </button>
         </p>
         <p>
             <button onclick="document.getElementById('Fill in Personal Information').style.display='block'"
-                    class="w3-button w3-black">Fill in Personal Information
+                    class="w3-button w3-black">Modify Personal Information
             </button>
         </p>
         <!--    <p><button onclick="{{ url_for('choose_flavor') }}"  class="w3-button w3-black">Choose Flavor</button></p>
@@ -131,8 +131,8 @@
                     <img src="/static/meal.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
                     <h3 style="font-weight: bold; color: white">Frefered Flavour</h3>
                     <p></p>
-                    <p><input class="w3-input w3-animate-input" type="text" value="{{ context.flavour }}"
-                              style="width:30%" required name="flavour"></p>
+                    <p><input class="w3-input w3-animate-input" type="text" value="{{ context.fitnessgoal }}"
+                              style="width:30%" required name="fitnessgoal"></p>
                 </div>
                 <div class="w3-quarter">
                     <img src="/static/meal.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
@@ -186,7 +186,7 @@
               class="w3-button w3-display-topright w3-black">x</span>
         <div class="section center center">
             <div class="section_title" style="text-indent: 100px; font-weight: bold; color: white;">
-                <p>Choose your favorite flavor</p>
+                <p>Get Today's Recommendation</p>
             </div>
             <form action="{{ url_for('choose_flavor') }}" method="post">
                 <div class="cc-selector">
@@ -212,7 +212,7 @@
                 </div>
                 <p>
                 <div class="div-center"><input class="btn btn-primary" type="submit" name="action"
-                                               value="Get Recommendation"/></div>
+                                               value="Choose"/></div>
                 </p>
             </form>
         </div>
@@ -225,7 +225,6 @@
     <div class="w3-modal-content w3-animate-zoom">
         <div class="sectiongrey">
             <div class="w3-container w3-black">
-
                 <span onclick="document.getElementById('contact').style.display='none'"
                       class="w3-button w3-display-topright w3-black">x</span>
                 <!-- <h1>Contact</h1> -->
@@ -233,7 +232,6 @@
             <div class="w3-container">
                 <p>Register:</p>
                 <form action="{{ url_for('register') }}" method="POST">
-
                     <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Please enter your name"
                               required name="name"></p>
                     <p><input class="w3-input w3-padding-16 w3-border" type="email"
