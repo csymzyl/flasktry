@@ -50,9 +50,9 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="/index" >Log out</a></li>
             <!--<li><a onclick="document.getElementById('Fill in Personal Information').style.display='block'" class="w3-button">Fill in Personal Information</a></li>-->
-            <li><a onclick="document.getElementById('contact').style.display='block'" class="w3-button">contact</a></li>
+            <li class="active"><a href="moveforward" class="w3-button">Choose Again</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -70,24 +70,14 @@
                   <p>{{ error }}</p>
               {% else %}
                 <div class="w3-row-padding w3-padding-16 w3-center" id="food">
- <!--                   <div class="w3-third">
-                        <img  id="image1", src="{{ entries[0][4] }}" alt="image1" style="width:100%">
-                    </div>
-                    <div class="w3-third">
-                     <img  id="image2", src="{{ entries[1][4] }}" alt="image2" style="width:100%">
-                    </div>
-                    <div class="w3-third">
-                     <img  id="image3", src="{{ entries[2][4] }}" alt="image3" style="width:100%">
-                    </div>
--->
                     {% for i in range(3) %}
                         <div class="w3-third">
                             <div class="w3-button w3-white w3-ripple" style="margin:0;padding:0" onclick="document.getElementById('ingredient0').style.display='none';document.getElementById('ingredient1').style.display='none';document.getElementById('ingredient2').style.display='none';document.getElementById('ingredient{{ i }}').style.display='';">
-                                <img src="{{ entries[i][4] }}" style="width:100%">
+                                <img src="{{ entries[i]['imgurl'] }}" style="width:100%">
                             </div>
                         <!--
                         <input id="{{i}}"  type="radio" name="choosedrecipe" value="{{i}}" hidden required/>
-                        <label for="{{ i }}"><img src="{{ entries[i][4] }}" width="100%"></label>
+                        <label for="{{ i }}"><img src="{{ entries[i]['imgurl'] }}" width="100%"></label>
                         -->
                     </div>
                   {% endfor %}
@@ -97,14 +87,20 @@
                     {% for i in range(3) %}
                         <div class="w3-third">
                             <p></p>
-                            <h4> {{ entries[i][1] }}</h4>
+                            <h4> {{ entries[i]['name'] }}</h4>
                             <p></p>
-                            <h4> Provider: </h4><p></p><h4>{{ entries[i][3] }}</h4>
+                            <h4> Provider: </h4><p></p><h4>{{ entries[i]['provider'] }}</h4>
                         </div>
                      {% endfor %}
                   </div>
-                  <div class="div-center"><input class="btn btn-primary" type="submit" name="action" onclick="document.getElementById('evaluate').style.display='block'"
-                                               value="Choose and Evaluate"/></div>
+                  <div class="w3-row-padding w3-padding-1">
+                      <div class="w3-third"><p></p></div>
+                      <div class="w3-third">
+                         <input class="btn btn-primary" type="submit" name="action" onclick="document.getElementById('evaluate').style.display='block'"
+                                                       value="Choose and Evaluate"/>
+                      </div>
+                      <div class="w3-third"><p></p></div>
+                  </div>
             </div>
         </div>
 
@@ -123,7 +119,11 @@
                     {% for i in range(3) %}
                         <div id="ingredient{{ i }}" style="display: none;">
                             <p></p>
-                              {% for x in entries[i][2] %}
+                        <!--
+                        <h5>{{entries[i]['ingredient']}}</h5>
+                        -->
+
+                              {% for x in ingredient[i] %}
                                     <h5>{{ x }}</h5>
                                     <p></p>
                               {% endfor %}
@@ -273,7 +273,7 @@
     </div>
     <div class="w3-container">
           <form id="score_form" action="{{ url_for('evaluate') }}"  method="POST">
-            <div class="star_evaluate">
+            <div class="star_evaluate div center">
                 <input type="radio" id="scoreId_1" class="score score_1" name="score" value="1"/>
                 <label for="scoreId_1" class="star star_1"></label>
                 <input type="radio" id="scoreId_2" class="score score_2" name="score" value="2"/>

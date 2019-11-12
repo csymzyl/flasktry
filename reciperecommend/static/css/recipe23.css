@@ -45,14 +45,14 @@ body {
 }
 
 .section {
-    margin-top: 20px;
+    margin-top: 0px;
     margin-left: 0px;
     position: relative;
-    width:400px;
+    width:360px;
     min-height: 100%;
     float:right;
     background-color:rgba(0, 0, 0, 0.5);
-    padding:30px;
+    padding:0px;
 }
 
 .section_second {

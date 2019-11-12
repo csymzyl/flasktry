@@ -12,7 +12,7 @@ from concurrent.futures import ThreadPoolExecutor
 import time
 from time import sleep
 
-executor = ThreadPoolExecutor(2)
+executor = ThreadPoolExecutor(10)
 app = Flask(__name__)
 
 app.debug = True
@@ -55,30 +55,32 @@ def choose_flavor():
     email = current_user.email
     character = connsql.user_character.query.filter(connsql.user_character.email == email).first()
     if character:
-        standard = nutrition(character.age,character.weight, character.height, character.gender, character.activity)
-        print (standard)
-        recipe=connmongodb.getSatisifiedRecipe()
-        print (request.form)
+        #standard = nutrition(character.age,character.weight, character.height, character.gender, character.activity)
+        #print (standard)
+        #recipe=connmongodb.getSatisifiedRecipe()
+        #recipe=connmongodb.getSatisifiedRecipefrommongo(email,character.region,character)
+        #print (request.form)
         choice = int(request.form['choosedrecipe'])
         print (global_var[0])
-        recipe=list(global_var[0]['recipe'][choice])
+        recipe=list(global_var[0]['recipe'][choice]['recipearr'])
+        global_var[0]['choice']=choice
+        #print ((recipe[0][4],recipe[0][0],recipe[0][1]))
+        ingr=[]
         for i in range(len(recipe)):
-            recipe[i]=list(recipe[i])
-            lst=recipe[i][2][2:-2]
+            str=recipe[i]['ingredient'][2:-2]
             ind=0
             j=0
             arr=[]
-            while j<len(lst):
-                if lst[j]=="'":
-                    arr.append(lst[ind:j])
+            while j<len(str):
+                if str[j]=="'":
+                    arr.append(str[ind:j])
                     j+=4
                     ind=j
                 j+=1
-            recipe[i].append(arr)
-            recipe[i][2]=arr
-        global_var[0]['choice']=choice
-        print ((recipe[0][4],recipe[0][0],recipe[0][1]))
-        return render_template('recipeRecommend.html', entries=recipe,error=None)
+            ingr.append(arr)
+            #recipe[i].append(arr)
+            #recipe[i][2]=arr
+        return render_template('recipeRecommend.html', entries=recipe, ingredient=ingr,error=None)
     return render_template('newindex.html')
 
 
@@ -93,17 +95,19 @@ def evaluate():
     #executor.submit(some_long_task1)
     email = current_user.email
     print(email)
-    recipe = list(global_var[0]['recipe'][global_var[0]['choice']])
+    recipe =global_var[0]['recipe'][global_var[0]['choice']]['recipearr']
     print(recipe)
 
     curtime = time.strftime("%Y-%m-%d", time.localtime())
     timestamp = time.time()
     for x in recipe:
-        userrecipe = connsql.user_historicalrecipe(email=email,recipeid=x[0],date=curtime,timestamp=timestamp,score=score)
+        userrecipe = connsql.user_historicalrecipe(email=email,recipeid=x['recipeid'],date=curtime,timestamp=timestamp,score=score)
         connsql.db.session.add(userrecipe)
         connsql.db.session.commit()
-    character = connsql.user_character.query.filter(connsql.user_character.email == email).first()
-    executor.submit(saveuserrecipe, score,email,recipe)
+    future=executor.submit(saveuserrecipe, email,connsql,connmongodb)
+    print (future.running())
+    #print(future.result())
+    saveuserrecipe(email,connsql,connmongodb)
     #executor.submit(some_long_task2, 'hello', score)
     return redirect(url_for('move_forward', reg=0))
 
@@ -119,6 +123,7 @@ def fill_info():
         gender = request.form['gender']
         activity = request.form['activity']
         region = request.form['region']
+        cookingskill = request.form['cookingskill']
         print(activity,gender)
         character = connsql.user_character.query.filter(connsql.user_character.email == email).first()
         # 判断用户名是否存在
@@ -131,9 +136,10 @@ def fill_info():
             character.gender=gender
             character.activity=activity
             character.region=region
+            character.cookingskill=cookingskill
             connsql.db.session.commit()
         else:
-            character = connsql.user_character(email=email,fitnessgoal=fitnessgoal, height=height, weight=weight, age=age, gender=gender,activity=activity,region=region)
+            character = connsql.user_character(email=email,fitnessgoal=fitnessgoal, height=height, weight=weight, age=age, gender=gender,activity=activity,region=region,cookingskill=cookingskill)
             connsql.db.session.add(character)
             connsql.db.session.commit()
         return redirect(url_for('move_forward'))
@@ -195,7 +201,7 @@ def move_forward():
 
     character = connsql.user_character.query.filter(connsql.user_character.email == email).first()
     if character:
-        recipe = connmongodb.getSatisifiedRecipe()
+        recipe = connmongodb.getSatisifiedRecipefrommongo(email,character.region,character)
         print(recipe)
         context = {
             'region': character.region,
@@ -226,7 +232,11 @@ def show_post(post_id):
 
 @app.route('/jobs')
 def run_jobs():
-    executor.submit(some_long_task1)
+    email="admin@admin.com"
+    future = executor.submit(saveuserrecipe, email,connsql,connmongodb)
+    print(future.running())
+    #print(future.result())
+    #executor.submit(some_long_task1)
     #executor.submit(some_long_task2, 'hello', 123)
     return redirect(url_for('move_forward', reg=0))
 
@@ -252,12 +262,24 @@ def some_long_task2(arg1, arg2):
 
 
 
-def saveuserrecipe(score,email,recipe):
+def saveuserrecipe(email,connsql,connmongodb):
 
-    curtime = time.strftime("%Y-%m-%d", time.localtime())
-    #recipeid=recipe[0][0]
-    timestamp=time.time()
-    print ('asfdsf')
-
+    historicalrecipe = connsql.user_historicalrecipe.query.filter(connsql.user_historicalrecipe.email == email).all()
+    cnt = 3
+    recipe = []
+    print ("wriite begin")
+    for i in range(len(historicalrecipe) - 1, -1, -1):
+        if historicalrecipe[i].score < 4:
+            continue
+        cnt -= 1
+        if cnt < 0:
+            break
+        recipe.append(historicalrecipe[i].recipeid)
+    character = connsql.user_character.query.filter(connsql.user_character.email == email).first()
+    print ("write end1")
+    if character:
+        connmongodb.writeSatisifiedRecipeintoMongo(email, recipe, character.region,character)
+    print ("write end")
+    #return redirect(url_for('move_forward', reg=0))
 if __name__ == '__main__':
     app.run()

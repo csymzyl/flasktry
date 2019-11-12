@@ -85,6 +85,7 @@
             background: url("/static/icon/icon-star-active.png") repeat-x;
             background-size: 20px 20px;
             left: 0;
+            z-index: 1;
         }
 
         .score_1:checked + .star_1 {

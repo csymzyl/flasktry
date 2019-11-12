@@ -78,9 +78,10 @@
 -->
     </div>
     <div class="w3-display-bottomleft w3-container">
-        <p class="w3-xlarge">monday - friday 10-23 | saturday 14-02</p>
-        <p class="w3-large">Georgia Tech, Atlanta</p>
-        <p>powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+        <p class="w3-xlarge">14:51 | saturday 2019-11-09</p>
+        <p class="w3-large">It is time for your lunch now.</p>
+        <p class="w3-large">Check and find what you may like</p>
+        <p>  </p>
     </div>
 </div>
 
@@ -129,10 +130,14 @@
                 </div>
                 <div class="w3-quarter">
                     <img src="/static/meal.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
-                    <h3 style="font-weight: bold; color: white">Frefered Flavour</h3>
+                    <h3 style="font-weight: bold; color: white">Fitness Goal</h3>
                     <p></p>
-                    <p><input class="w3-input w3-animate-input" type="text" value="{{ context.fitnessgoal }}"
-                              style="width:30%" required name="fitnessgoal"></p>
+                    <p><select class="w3-select w3-animate-input" class="form-control " style="width:30%" name="fitnessgoal"
+                                required>
+                            <option>Lose Weight</option>
+                            <option>Build Muscle</option>
+                            <option>Keep Fit</option>
+                        </select></p></p>
                 </div>
                 <div class="w3-quarter">
                     <img src="/static/meal.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
@@ -160,16 +165,31 @@
                 </div>
                 <div class="w3-quarter">
                     <img src="/static/meal.svg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
-                    <h3 style="font-weight: bold; color: white">Prefered Flavour</h3>
+                    <h3 style="font-weight: bold; color: white">Cooking Skill</h3>
                     <p></p>
                     <p>
+                    <select class="w3-select w3-animate-input" class="form-control " style="width:30%"
+                                name="cookingskill" required>
+                            <option>Basic</option>
+                            <option>Intermediate</option>
+                            <option>Advanced</option>
+                        </select>
+                    <!--
                     <div class="div-center"><input class="w3-input w3-animate-input" class="btn btn-primary"
                                                    type="submit" style="width:30%" name="action" value="Confirm"
                                                    onclick="document.getElementById('Choose Flavor').style.display='block'"
                                                    class="w3-button w3-black"/></div>
+                    -->
                     </p>
                 </div>
                 <p></p>
+                <div class="w3-row">
+  <div class="w3-col" style="width:40%"><p></p></div>
+  <div class="w3-col" style="width:32%"><p><input class="w3-input w3-animate-input" class="btn btn-primary"
+                                                   type="submit" style="width:30%" name="action" value="Confirm"
+                                                   class="w3-button"/></p>
+  <div class="w3-col" style="width:40%"><p></p></div>
+</div>
                 <!--
                 <p><div class="div-center"><input class="btn btn-primary" type="submit" name="action" value="Confirm" /></div></p>
                 -->
@@ -185,9 +205,6 @@
         <span onclick="document.getElementById('Choose Flavor').style.display='none'"
               class="w3-button w3-display-topright w3-black">x</span>
         <div class="section center center">
-            <div class="section_title" style="text-indent: 100px; font-weight: bold; color: white;">
-                <p>Get Today's Recommendation</p>
-            </div>
             <form action="{{ url_for('choose_flavor') }}" method="post">
                 <div class="cc-selector">
                     <div class="input-group">
@@ -201,8 +218,8 @@
                                 {%  else %}
                                 {% endif %}-->
                                 <input id="{{j}}"  type="radio" name="choosedrecipe" value="{{j}}" required/>
-                                <label class="drinkcard-cc" for="{{ j }}" style="background-image:url({{ context.recipe[j][i][4] }})">"</label>
-                                    <p><div style="font-weight: bold; color: white;">{{ context.recipe[j][i][1] }}</div></p>
+                                <label class="drinkcard-cc" for="{{ j }}" style="background-image:url({{ context.recipe[j]['recipearr'][i]['imgurl']  }})">"</label>
+                                    <p><div style="font-weight: bold; color: white;">{{ context.recipe[j]['recipearr'][i]['name'] }}</div></p>
                             </div>
                             {% endfor %}
                         </div>
@@ -211,8 +228,14 @@
                     </div>
                 </div>
                 <p>
+                <div class="w3-row">
+                <div class="w3-third w3-container"></div>
+                <div class="w3-third w3-container">
                 <div class="div-center"><input class="btn btn-primary" type="submit" name="action"
                                                value="Choose"/></div>
+                    </div>
+                <div class="w3-third w3-container"></div>
+            </div>
                 </p>
             </form>
         </div>
